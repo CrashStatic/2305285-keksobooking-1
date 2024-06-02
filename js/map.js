@@ -1,5 +1,9 @@
 import { setFormActive } from './form.js';
-import { renderCard } from './card.js';
+import { getCard } from './card.js';
+
+const LATITUDE = 35.67078;
+
+const LONGITUDE = 139.75899;
 
 const addressFieldElement = document.querySelector('#address');
 
@@ -9,12 +13,12 @@ const map = L.map('map-canvas')
     addressFieldElement.placeholder = '35.67078, 139.75899';
   })
   .setView({
-    lat: 35.67078,
-    lng: 139.75899,
+    lat: LATITUDE,
+    lng: LONGITUDE,
   }, 10);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
+  maxZoom: 20,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -26,8 +30,8 @@ const mainMarkerIcon = L.icon({
 
 const mainMarker = L.marker(
   {
-    lat: 35.67078,
-    lng: 139.75899,
+    lat: LATITUDE,
+    lng: LONGITUDE,
   },
   {
     draggable: true,
@@ -65,7 +69,7 @@ const createMarker = (similarAd) => {
 
   marker
     .addTo(markerGroup)
-    .bindPopup(renderCard(similarAd));
+    .bindPopup(getCard(similarAd));
 };
 
 const renderSimilarAdMarker = (ads) => ads.forEach((similarAd) => createMarker(similarAd));

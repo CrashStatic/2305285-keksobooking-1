@@ -101,4 +101,4 @@ formElement.addEventListener('submit', (evt) => {
   }
 });
 
-export { priceFieldElement, typeFieldElement };
+export { priceFieldElement };

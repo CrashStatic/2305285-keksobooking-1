@@ -1,6 +1,5 @@
 import { getRoomPlural } from './util.js';
 
-const containerElement = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const nameOfType = {
@@ -55,7 +54,7 @@ const getCapacity = (rooms, guests) => rooms && guests ? `${rooms} ${getRoomPlur
 
 const getTime = (checkin, checkout) => checkin && checkout ? `Заезд после ${checkin}, выезд до ${checkout}` : null;
 
-const renderCard = (ad) => {
+const getCard = (ad) => {
   const fragment = document.createDocumentFragment();
 
   const advertisementElement = cardTemplate.cloneNode(true);
@@ -74,9 +73,7 @@ const renderCard = (ad) => {
 
   fragment.appendChild(advertisementElement);
 
-  containerElement.appendChild(fragment);
-
   return advertisementElement;
 };
 
-export { renderCard };
+export { getCard };
