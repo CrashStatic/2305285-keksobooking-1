@@ -1,6 +1,6 @@
 import { toggleElementState } from './util.js';
+import { formElement, validateForm } from './validate.js';
 
-const formElement = document.querySelector('.ad-form');
 const interactiveFormElements = formElement.querySelectorAll('.ad-form__element');
 
 const toggleFormState = (isActive) => {
@@ -18,4 +18,25 @@ const setFormActive = () => {
 
 setFormInactive();
 
-export { setFormActive, formElement };
+const setUserFormSubmit = () => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = validateForm();
+
+    if (!isValid) {
+      // evt.preventDefault();
+    } else {
+      const formData = new FormData(evt.target);
+
+      fetch(
+        'https://28.javascript.htmlacademy.pro/keksobooking',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+    }
+  });
+};
+
+export { setFormActive, setUserFormSubmit };

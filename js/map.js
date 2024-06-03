@@ -55,7 +55,7 @@ const similarMarkerIcon = L.icon({
 const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (similarAd) => {
-  const { lat, lng } = similarAd.offer.location;
+  const { lat, lng } = similarAd.location;
 
   const marker = L.marker(
     {
