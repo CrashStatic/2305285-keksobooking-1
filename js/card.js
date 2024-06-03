@@ -55,8 +55,6 @@ const getCapacity = (rooms, guests) => rooms && guests ? `${rooms} ${getRoomPlur
 const getTime = (checkin, checkout) => checkin && checkout ? `Заезд после ${checkin}, выезд до ${checkout}` : null;
 
 const getCard = (ad) => {
-  const fragment = document.createDocumentFragment();
-
   const advertisementElement = cardTemplate.cloneNode(true);
 
   fillElementAttribute(advertisementElement.querySelector('.popup__title'), 'textContent', ad.offer.title);
@@ -70,8 +68,6 @@ const getCard = (ad) => {
 
   createPopupFeatures(ad.offer.features, advertisementElement.querySelector('.popup__features'));
   createPopupPhotos(ad.offer.photos, advertisementElement.querySelector('.popup__photos'));
-
-  fragment.appendChild(advertisementElement);
 
   return advertisementElement;
 };
