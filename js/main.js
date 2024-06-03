@@ -1,14 +1,13 @@
 import './form.js';
 import './filters.js';
+import './slider.js';
 import './validate.js';
-import { renderCard } from './card.js';
 import { generateAdvertisement } from './data.js';
-import { setFormActive } from './form.js';
 import { setFilterActive } from './filters.js';
+import { renderSimilarAdMarker } from './map.js';
 
-const advertisements = generateAdvertisement();
+const adds = generateAdvertisement();
 
-renderCard(advertisements[0]);
+renderSimilarAdMarker(adds);
 
-setFormActive();
 setFilterActive();

@@ -61,6 +61,10 @@ pristine.addValidator(priceFieldElement,
   getPriceErrorMessage
 );
 
+const setMinPrice = (evt) => (priceFieldElement.placeholder = MinPricePerNight[evt.target.value]);
+
+typeFieldElement.addEventListener('change', setMinPrice);
+
 const validateRoomNumber = () => RoomsOption[roomNumberFieldElement.value].includes(capacityFieldElement.value);
 
 pristine.addValidator(roomNumberFieldElement,
@@ -96,3 +100,5 @@ formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export { priceFieldElement };
