@@ -7,7 +7,6 @@ import './messages.js';
 // import { generateAdvertisement } from './data.js';
 import { setFilterActive } from './filters.js';
 import { renderSimilarAdMarker } from './map.js';
-import { setUserFormSubmit } from './form.js';
 
 const SIMILAR_AD_COUNT = 10;
 
@@ -20,5 +19,4 @@ fetch('https://28.javascript.htmlacademy.pro/keksobooking/data')
 // const adds = generateAdvertisement();
 
 // renderSimilarAdMarker(adds);
-setUserFormSubmit();
 setFilterActive();

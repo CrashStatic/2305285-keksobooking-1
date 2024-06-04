@@ -1,5 +1,6 @@
 import { toggleElementState } from './util.js';
-import { formElement, validateForm } from './validate.js';
+import { formElement, validateForm, resetPristine } from './validate.js';
+import { openSuccessMessage } from './messages.js';
 
 const interactiveFormElements = formElement.querySelectorAll('.ad-form__element');
 
@@ -18,14 +19,17 @@ const setFormActive = () => {
 
 setFormInactive();
 
+const clearForm = () => {
+  formElement.reset();
+  resetPristine();
+};
+
 const setUserFormSubmit = () => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = validateForm();
 
-    if (!isValid) {
-      // evt.preventDefault();
-    } else {
+    if (isValid) {
       const formData = new FormData(evt.target);
 
       fetch(
@@ -34,9 +38,14 @@ const setUserFormSubmit = () => {
           method: 'POST',
           body: formData,
         },
-      );
+      ).then(() => {
+        clearForm();
+        openSuccessMessage();
+      });
     }
   });
 };
 
-export { setFormActive, setUserFormSubmit };
+setUserFormSubmit();
+
+export { setFormActive };

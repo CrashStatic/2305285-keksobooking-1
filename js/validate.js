@@ -94,6 +94,8 @@ timeOutFieldElement.addEventListener('change', setTimeIn);
 
 const validateForm = () => pristine.validate();
 
+const resetPristine = () => pristine.reset();
+
 // formElement.addEventListener('submit', (evt) => {
 //   const isValid = pristine.validate();
 
@@ -102,4 +104,4 @@ const validateForm = () => pristine.validate();
 //   }
 // });
 
-export { priceFieldElement, validateForm, formElement };
+export { priceFieldElement, validateForm, resetPristine, formElement };

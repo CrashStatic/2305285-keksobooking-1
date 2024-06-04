@@ -1,3 +1,6 @@
+// Проверка нажатия клавиши Escape
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 // Функция получения целого числа из переданного диапазона
 
 const getRandomPositiveInteger = (min, max) => {
@@ -30,4 +33,4 @@ const toggleElementState = (element, isActive) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-export { getRandomPositiveInteger, getRandomFloat, getRandomArrayElement, getRoomPlural, toggleElementState };
+export { getRandomPositiveInteger, getRandomFloat, getRandomArrayElement, getRoomPlural, toggleElementState, isEscapeKey };
