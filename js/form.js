@@ -1,8 +1,12 @@
 import { toggleElementState } from './util.js';
 import { formElement, validateForm, resetPristine } from './validate.js';
 import { openSuccessMessage } from './messages.js';
+import { resetSlider } from './slider.js';
+// import { resetMap } from './map.js';
+import { sendData } from './api.js';
 
 const interactiveFormElements = formElement.querySelectorAll('.ad-form__element');
+const resetFormButtonElement = formElement.querySelector('.ad-form__reset');
 
 const toggleFormState = (isActive) => {
   formElement.classList.toggle('ad-form--disabled', !isActive);
@@ -22,7 +26,13 @@ setFormInactive();
 const clearForm = () => {
   formElement.reset();
   resetPristine();
+  resetSlider();
+  // resetMap();
 };
+
+resetFormButtonElement.addEventListener('click', () => {
+  clearForm();
+});
 
 const setUserFormSubmit = () => {
   formElement.addEventListener('submit', (evt) => {
@@ -30,18 +40,12 @@ const setUserFormSubmit = () => {
     const isValid = validateForm();
 
     if (isValid) {
-      const formData = new FormData(evt.target);
-
-      fetch(
-        'https://28.javascript.htmlacademy.pro/keksobooking',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      ).then(() => {
-        clearForm();
-        openSuccessMessage();
-      });
+      sendData(new FormData(evt.target))
+        .then(() => {
+          clearForm();
+          openSuccessMessage();
+        })
+        .catch((err) => err);
     }
   });
 };

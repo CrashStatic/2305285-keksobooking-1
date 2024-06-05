@@ -72,6 +72,11 @@ const createMarker = (similarAd) => {
     .bindPopup(getCard(similarAd));
 };
 
+// const resetMap = () => {
+//   mainMarker.setLatLngs([LATITUDE, LONGITUDE]);
+//   // map.closePopup();
+// };
+
 const renderSimilarAdMarker = (ads) => ads.forEach((similarAd) => createMarker(similarAd));
 
 export { renderSimilarAdMarker };
