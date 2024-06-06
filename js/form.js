@@ -5,8 +5,24 @@ import { resetSlider } from './slider.js';
 // import { resetMap } from './map.js';
 import { sendData } from './api.js';
 
+const PublishButtonText = {
+  IDLE: 'ОПУБЛИКОВАТЬ',
+  SENDING: 'ПУБЛИКУЮ..'
+};
+
 const interactiveFormElements = formElement.querySelectorAll('.ad-form__element');
 const resetFormButtonElement = formElement.querySelector('.ad-form__reset');
+const publishButtonElement = formElement.querySelector('.ad-form__submit');
+
+const blockPublishButton = () => {
+  publishButtonElement.disabled = true;
+  publishButtonElement.textContent = PublishButtonText.SENDING;
+};
+
+const unblockPublishButton = () => {
+  publishButtonElement.disabled = false;
+  publishButtonElement.textContent = PublishButtonText.IDLE;
+};
 
 const toggleFormState = (isActive) => {
   formElement.classList.toggle('ad-form--disabled', !isActive);
@@ -40,12 +56,14 @@ const setUserFormSubmit = () => {
     const isValid = validateForm();
 
     if (isValid) {
+      blockPublishButton();
       sendData(new FormData(evt.target))
         .then(() => {
           clearForm();
           openSuccessMessage();
         })
-        .catch((err) => err);
+        .catch((err) => err)
+        .finally(unblockPublishButton);
     }
   });
 };
