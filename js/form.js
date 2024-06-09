@@ -2,7 +2,7 @@ import { toggleElementState } from './util.js';
 import { formElement, validateForm, resetPristine } from './validate.js';
 import { openSuccessMessage } from './messages.js';
 import { resetSlider } from './slider.js';
-// import { resetMap } from './map.js';
+import { resetMap } from './map.js';
 import { sendData } from './api.js';
 
 const PublishButtonText = {
@@ -43,7 +43,7 @@ const clearForm = () => {
   formElement.reset();
   resetPristine();
   resetSlider();
-  // resetMap();
+  resetMap();
 };
 
 resetFormButtonElement.addEventListener('click', () => {

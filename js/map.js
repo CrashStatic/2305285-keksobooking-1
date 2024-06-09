@@ -10,7 +10,7 @@ const addressFieldElement = document.querySelector('#address');
 const map = L.map('map-canvas')
   .on('load', () => {
     setFormActive();
-    addressFieldElement.placeholder = '35.67078, 139.75899';
+    addressFieldElement.placeholder = `${LATITUDE}, ${LONGITUDE}`;
   })
   .setView({
     lat: LATITUDE,
@@ -72,11 +72,16 @@ const createMarker = (similarAd) => {
     .bindPopup(getCard(similarAd));
 };
 
-// const resetMap = () => {
-//   mainMarker.setLatLngs([LATITUDE, LONGITUDE]);
-//   // map.closePopup();
-// };
+const resetMap = () => {
+  mainMarker.setLatLng([LATITUDE, LONGITUDE]);
+  map.closePopup();
+  map.setView({
+    lat: LATITUDE,
+    lng: LONGITUDE,
+  }, 10);
+  addressFieldElement.placeholder = `${LATITUDE}, ${LONGITUDE}`;
+};
 
 const renderSimilarAdMarker = (ads) => ads.forEach((similarAd) => createMarker(similarAd));
 
-export { renderSimilarAdMarker };
+export { renderSimilarAdMarker, resetMap };

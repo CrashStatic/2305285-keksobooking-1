@@ -1,8 +1,3 @@
-import './form.js';
-import './filters.js';
-import './slider.js';
-import './validate.js';
-import './messages.js';
 import { setFilterActive } from './filters.js';
 import { renderSimilarAdMarker } from './map.js';
 import { getData } from './api.js';
