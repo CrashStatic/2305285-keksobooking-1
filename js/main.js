@@ -1,13 +1,11 @@
-import './form.js';
-import './filters.js';
-import './slider.js';
-import './validate.js';
-import { generateAdvertisement } from './data.js';
 import { setFilterActive } from './filters.js';
 import { renderSimilarAdMarker } from './map.js';
+import { getData } from './api.js';
 
-const adds = generateAdvertisement();
+const SIMILAR_AD_COUNT = 10;
 
-renderSimilarAdMarker(adds);
-
-setFilterActive();
+getData()
+  .then((adds) => {
+    renderSimilarAdMarker(adds.slice(0, SIMILAR_AD_COUNT));
+    setFilterActive();
+  });

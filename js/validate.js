@@ -1,5 +1,3 @@
-import { formElement } from './form.js';
-
 const MAX_PRICE_PER_NIGHT = 100000;
 
 const TitleLength = {
@@ -22,6 +20,7 @@ const MinPricePerNight = {
   'palace': 10000,
 };
 
+const formElement = document.querySelector('.ad-form');
 const titleFieldElement = formElement.querySelector('#title');
 const priceFieldElement = formElement.querySelector('#price');
 const roomNumberFieldElement = formElement.querySelector('#room_number');
@@ -93,12 +92,16 @@ timeInFieldElement.addEventListener('change', setTimeOut);
 
 timeOutFieldElement.addEventListener('change', setTimeIn);
 
-formElement.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
+const validateForm = () => pristine.validate();
 
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+const resetPristine = () => pristine.reset();
 
-export { priceFieldElement };
+// formElement.addEventListener('submit', (evt) => {
+//   const isValid = pristine.validate();
+
+//   if (!isValid) {
+//     evt.preventDefault();
+//   }
+// });
+
+export { priceFieldElement, validateForm, resetPristine, formElement };
