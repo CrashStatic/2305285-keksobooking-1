@@ -96,12 +96,4 @@ const validateForm = () => pristine.validate();
 
 const resetPristine = () => pristine.reset();
 
-// formElement.addEventListener('submit', (evt) => {
-//   const isValid = pristine.validate();
-
-//   if (!isValid) {
-//     evt.preventDefault();
-//   }
-// });
-
 export { priceFieldElement, validateForm, resetPristine, formElement };
