@@ -9,6 +9,7 @@ setFilterInactive();
 getData()
   .then((adds) => {
     renderSimilarAdMarker(adds.slice(0, SIMILAR_AD_COUNT));
+    console.log(adds);
     initFilters(adds);
     setFilterActive();
   }).catch((err) => err);
