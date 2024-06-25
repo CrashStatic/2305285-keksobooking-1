@@ -84,9 +84,33 @@ const filterByGuests = (ad) => {
   return Number(filterGuestsValue) === ad.offer.guests;
 };
 
+// const filterByFeatures = (ad) => {
+//   const filterFeaturesValue = featuresFilterElement.value;
+// };
+
 const filterByFeatures = (ad) => {
-  const filterFeaturesValue = featuresFilterElement.value;
-  return filterFeaturesValue === ad.offer.features;
+  // const filterFeaturesValue = featuresFilterElement.value;
+  const checkedFeaturesElements = featuresFilterElement.querySelectorAll('input[name="features"]:checked');
+  // const checkedFeatures = Array.from(checkedFeaturesElements).map((element) => element.value);
+  // checkedFeaturesElements.forEach((element) => {
+  //   const filterFeaturesCheck = element.value;
+  //   return filterFeaturesCheck;
+  // });
+  // console.log(Array(checkedFeaturesElements));
+  const filterFeaturesValue = ad.offer.features;
+  Array(filterFeaturesValue).every((features) => {
+    // const filterFeaturesValue = ad.offer.features;
+    features = checkedFeaturesElements;
+    if (filterFeaturesValue) {
+      return filterFeaturesValue.includes(features);
+    }
+  }
+  );
+
+  // for (const feature of checkedFeatures) {
+  //   return Array(filterFeaturesValue).includes(feature);
+  // }
+  console.log(filterFeaturesValue);
 };
 
 const initFilters = (adds) => {
@@ -94,8 +118,11 @@ const initFilters = (adds) => {
   currentAdds = adds;
   filterFormElement.addEventListener('change', () => {
     clearMap();
-    const filteredAbs = [...currentAdds].filter((ad) => filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad)).slice(0, ADDS_SIZE);
+    const filteredAbs = [...currentAdds].filter((ad) => filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad)).slice(0, ADDS_SIZE);
+    // const filteredAbs = [...currentAdds].filter((ad) => filterByFeatures(ad)).slice(0, ADDS_SIZE);
     renderSimilarAdMarker(filteredAbs);
+    // renderSimilarAdMarker(filterByFeatures(filteredAbs));
+    // console.log(renderSimilarAdMarker(filteredAbs));
   });
 };
 
