@@ -84,62 +84,40 @@ const filterByGuests = (ad) => {
   return Number(filterGuestsValue) === ad.offer.guests;
 };
 
-// const filterByFeatures = (ad) => {
-//   const filterFeaturesValue = featuresFilterElement.value;
-// };
-
 const filterByFeatures = (ad) => {
-  // const filterFeaturesValue = featuresFilterElement.value;
   const checkedFeaturesElements = featuresFilterElement.querySelectorAll('input[name="features"]:checked');
-  // const checkedFeatures = Array.from(checkedFeaturesElements).map((element) => element.value);
-  // checkedFeaturesElements.forEach((element) => {
-  //   const filterFeaturesCheck = element.value;
-  //   return filterFeaturesCheck;
-  // });
-  // console.log(Array(checkedFeaturesElements));
+  const checkedFeatures = Array.from(checkedFeaturesElements).map((element) => element.value);
+
   const filterFeaturesValue = ad.offer.features;
   Array(filterFeaturesValue).every((features) => {
-    // const filterFeaturesValue = ad.offer.features;
-    features = checkedFeaturesElements;
+    features = checkedFeatures;
     if (filterFeaturesValue) {
       return filterFeaturesValue.includes(features);
     }
   }
   );
-
-  // for (const feature of checkedFeatures) {
-  //   return Array(filterFeaturesValue).includes(feature);
-  // }
-  console.log(filterFeaturesValue);
 };
+
+// const checkedFeaturesElements = featuresFilterElement.querySelectorAll('input[name="features"]:checked');
+// const checkedFeatures = Array.from(checkedFeaturesElements);
+
+// const filterByFeatures = (ad) => checkedFeatures.every((feature) => {
+//   const filterFeaturesValue = ad.offer.features;
+//   if (filterFeaturesValue) {
+//     return filterFeaturesValue.includes(feature);
+//   }
+// });
 
 const initFilters = (adds) => {
   setFilterActive();
   currentAdds = adds;
   filterFormElement.addEventListener('change', () => {
     clearMap();
-    const filteredAbs = [...currentAdds].filter((ad) => filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad)).slice(0, ADDS_SIZE);
-    // const filteredAbs = [...currentAdds].filter((ad) => filterByFeatures(ad)).slice(0, ADDS_SIZE);
-    renderSimilarAdMarker(filteredAbs);
-    // renderSimilarAdMarker(filterByFeatures(filteredAbs));
-    // console.log(renderSimilarAdMarker(filteredAbs));
+    const filteredAds = [...currentAdds].filter((ad) => filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad)).slice(0, ADDS_SIZE);
+    renderSimilarAdMarker(filterByFeatures(filteredAds));
   });
 };
 
 setFilterInactive();
 
 export { setFilterActive, setFilterInactive, initFilters};
-
-// const filterByType = (ad) => {
-//   const filterTypeValue = typeFilterElement.value;
-//   if (filterTypeValue === 'any') {
-//     return true;
-//   }
-//   return filterTypeValue === ad.offer.type;
-// };
-
-// filterFormElement.addEventListener('change', () => {
-//   clearMap();
-//   const filteredAbs = [...currentAdds].filter((ad) => filterByType(ad)).slice(0, ADDS_SIZE);
-//   renderSimilarAdMarker(filteredAbs);
-// });
