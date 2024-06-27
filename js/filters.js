@@ -3,6 +3,21 @@ import { renderSimilarAdMarker, clearMap } from './map.js';
 
 const ADDS_SIZE = 10;
 
+const PricesRange = {
+  low: {
+    MIN: 0,
+    MAX: 10000,
+  },
+  middle: {
+    MIN: 10000,
+    MAX: 50000,
+  },
+  high: {
+    MIN: 50000,
+    MAX: 100000,
+  },
+};
+
 const filterFormElement = document.querySelector('.map__filters');
 const interactiveFilterElements = filterFormElement.querySelectorAll('.map__filter');
 const mapCheckboxElements = filterFormElement.querySelectorAll('.map__checkbox');
@@ -11,6 +26,7 @@ const priceFilterElement = document.querySelector('#housing-price');
 const roomsFilterElement = document.querySelector('#housing-rooms');
 const guestsFilterElement = document.querySelector('#housing-guests');
 const featuresFilterElement = document.querySelector('#housing-features');
+const featuresElements = featuresFilterElement.querySelectorAll('[name="features"]');
 
 let currentAdds = [];
 
@@ -28,23 +44,6 @@ const setFilterActive = () => {
   toggleFilterState(true);
 };
 
-// const sortAddsByType = (adds, type) => {
-//   if (type === ANY_VALUE) {
-//     return adds;
-//   }
-//   return adds.filter((item) => item.offer.type === type).slice(0, ADDS_SIZE);
-// };
-
-// const initFilters = (adds) => {
-//   setFilterActive();
-//   currentAdds = adds;
-//   typeFilterElement.addEventListener('change', (evt) => {
-//     const currentType = evt.target.value;
-//     clearMap();
-//     renderSimilarAdMarker(sortAddsByType(currentAdds, currentType));
-//   });
-// };
-
 const filterByType = (ad) => {
   const filterTypeValue = typeFilterElement.value;
   if (filterTypeValue === 'any') {
@@ -58,11 +57,11 @@ const filterByPrice = (ad) => {
 
   switch (filterPriceValue) {
     case 'low':
-      return ad.offer.price < 10000;
+      return ad.offer.price > PricesRange.low.MIN && ad.offer.price < PricesRange.low.MAX;
     case 'middle':
-      return ad.offer.price > 10000 && ad.offer.price < 50000;
+      return ad.offer.price > PricesRange.middle.MIN && ad.offer.price < PricesRange.middle.MAX;
     case 'high':
-      return ad.offer.price > 50000;
+      return ad.offer.price > PricesRange.high.MIN && ad.offer.price < PricesRange.high.MAX;
     default:
       return true;
   }
@@ -85,36 +84,23 @@ const filterByGuests = (ad) => {
 };
 
 const filterByFeatures = (ad) => {
-  const checkedFeaturesElements = featuresFilterElement.querySelectorAll('input[name="features"]:checked');
-  const checkedFeatures = Array.from(checkedFeaturesElements).map((element) => element.value);
-
-  const filterFeaturesValue = ad.offer.features;
-  Array(filterFeaturesValue).every((features) => {
-    features = checkedFeatures;
-    if (filterFeaturesValue) {
-      return filterFeaturesValue.includes(features);
-    }
-  }
-  );
+  const checkedFeatures = Array.from(featuresElements).filter((feature) => feature.checked).map((element) => element.value);
+  return checkedFeatures.every((checkedFeature) => ad.offer.features && ad.offer.features.includes(checkedFeature));
 };
-
-// const checkedFeaturesElements = featuresFilterElement.querySelectorAll('input[name="features"]:checked');
-// const checkedFeatures = Array.from(checkedFeaturesElements);
-
-// const filterByFeatures = (ad) => checkedFeatures.every((feature) => {
-//   const filterFeaturesValue = ad.offer.features;
-//   if (filterFeaturesValue) {
-//     return filterFeaturesValue.includes(feature);
-//   }
-// });
 
 const initFilters = (adds) => {
   setFilterActive();
   currentAdds = adds;
   filterFormElement.addEventListener('change', () => {
     clearMap();
-    const filteredAds = [...currentAdds].filter((ad) => filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad)).slice(0, ADDS_SIZE);
-    renderSimilarAdMarker(filterByFeatures(filteredAds));
+    const filteredAds = [...currentAdds].filter((ad) =>
+      filterByType(ad) &&
+      filterByPrice(ad) &&
+      filterByRooms(ad) &&
+      filterByGuests(ad) &&
+      filterByFeatures(ad)
+    ).slice(0, ADDS_SIZE);
+    renderSimilarAdMarker(filteredAds);
   });
 };
 
