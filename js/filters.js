@@ -1,4 +1,4 @@
-import { toggleElementState } from './util.js';
+import { toggleElementState, debounce } from './util.js';
 import { renderSimilarAdMarker, clearMap } from './map.js';
 
 const ADDS_SIZE = 10;
@@ -17,6 +17,8 @@ const PricesRange = {
     MAX: 100000,
   },
 };
+
+const debounceSimilarAdMarker = debounce(renderSimilarAdMarker);
 
 const filterFormElement = document.querySelector('.map__filters');
 const interactiveFilterElements = filterFormElement.querySelectorAll('.map__filter');
@@ -100,7 +102,7 @@ const initFilters = (adds) => {
       filterByGuests(ad) &&
       filterByFeatures(ad)
     ).slice(0, ADDS_SIZE);
-    renderSimilarAdMarker(filteredAds);
+    debounceSimilarAdMarker(filteredAds);
   });
 };
 
