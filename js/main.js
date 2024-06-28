@@ -1,3 +1,4 @@
+import './upload-photo.js';
 import { setFilterActive, setFilterInactive, initFilters } from './filters.js';
 import { renderSimilarAdMarker } from './map.js';
 import { getData } from './api.js';
