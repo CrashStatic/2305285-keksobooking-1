@@ -82,6 +82,11 @@ const resetMap = () => {
   addressFieldElement.placeholder = `${LATITUDE}, ${LONGITUDE}`;
 };
 
+const clearMap = () => {
+  resetMap();
+  markerGroup.clearLayers();
+};
+
 const renderSimilarAdMarker = (ads) => ads.forEach((similarAd) => createMarker(similarAd));
 
-export { renderSimilarAdMarker, resetMap };
+export { renderSimilarAdMarker, resetMap, clearMap };
